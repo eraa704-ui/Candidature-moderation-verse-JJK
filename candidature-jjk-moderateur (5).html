@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Candidature Modérateur JJK RP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #05050f;
+      --surface: #0a0a18;
+      --surface2: #0f0f1f;
+      --surface3: #141428;
+      --border: #1a1a30;
+      --accent: #6b48ff;
+      --accent2: #a855f7;
+      --accent3: #c084fc;
+      --glow: rgba(107,72,255,0.25);
+      --glow2: rgba(168,85,247,0.2);
+      --gold: #d4a843;
+      --gold2: #f0c060;
+      --text: #eeeef8;
+      --muted: #7070a0;
+      --dim: rgba(255,255,255,0.03);
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      line-height: 1.75;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── ANIMATED BACKGROUND ── */
+    .bg-layer {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    }
+    .bg-grad {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 15% -5%, rgba(107,72,255,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 85% 105%, rgba(168,85,247,0.14) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 50% 50%, rgba(107,72,255,0.04) 0%, transparent 70%);
+      animation: bgPulse 8s ease-in-out infinite;
+    }
+    @keyframes bgPulse {
+      0%,100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+
+    /* Scanning line effect */
+    .scanlines {
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        0deg, transparent 0px, transparent 3px,
+        rgba(107,72,255,0.015) 3px, rgba(107,72,255,0.015) 4px
+      );
+    }
+
+    /* ── PARTICLES ── */
+    .particles { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+    .p {
+      position:absolute; border-radius:50%; opacity:0;
+      animation: riseUp var(--d) ease-in-out infinite var(--dl);
+    }
+    @keyframes riseUp {
+      0%   { opacity:0; transform:translateY(0) scale(0.3); }
+      15%  { opacity:0.8; }
+      85%  { opacity:0.2; }
+      100% { opacity:0; transform:translateY(-200px) scale(2.5); }
+    }
+
+    /* ── LAYOUT ── */
+    .page {
+      position: relative; z-index: 1;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 70px 28px 100px;
+    }
+
+    /* ── COVER ── */
+    .cover {
+      text-align: center;
+      padding: 0 0 70px;
+    }
+
+    /* Big sigil */
+    .sigil-wrap {
+      position: relative;
+      width: 120px; height: 120px;
+      margin: 0 auto 36px;
+    }
+    .ring {
+      position:absolute; border-radius:50%;
+      animation: spinRing var(--spd) linear infinite var(--dir, normal);
+    }
+    .ring-1 { inset:0; border: 1.5px solid rgba(107,72,255,0.5); --spd:14s; }
+    .ring-2 { inset:10px; border: 1px dashed rgba(168,85,247,0.35); --spd:9s; --dir:reverse; }
+    .ring-3 { inset:20px; border: 1px solid rgba(107,72,255,0.2); --spd:20s; }
+    @keyframes spinRing { to { transform: rotate(360deg); } }
+
+    .sigil-glow {
+      position:absolute; inset:0; border-radius:50%;
+      background: radial-gradient(circle, rgba(107,72,255,0.15) 0%, transparent 70%);
+      animation: glowPulse 3s ease-in-out infinite;
+    }
+    @keyframes glowPulse {
+      0%,100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.15); opacity: 1; }
+    }
+
+    .sigil-core {
+      position:absolute; inset:0;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .sigil-core svg { filter: drop-shadow(0 0 12px rgba(107,72,255,0.8)); }
+
+    .eyecatch {
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      letter-spacing: 6px;
+      color: var(--accent2);
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      opacity: 0.8;
+    }
+
+    .cover h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(24px, 5vw, 42px);
+      font-weight: 700;
+      letter-spacing: 1px;
+      line-height: 1.3;
+      background: linear-gradient(140deg, #fff 0%, var(--accent2) 60%, var(--accent) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 14px;
+      text-shadow: none;
+    }
+
+    .cover .sub {
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    /* Tag pills */
+    .tag-row {
+      display: flex; gap: 10px; justify-content: center;
+      flex-wrap: wrap; margin-top: 22px;
+    }
+    .tag {
+      padding: 5px 14px;
+      border: 1px solid rgba(107,72,255,0.3);
+      border-radius: 99px;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent3);
+      background: rgba(107,72,255,0.07);
+      transition: all 0.3s;
+    }
+    .tag:hover {
+      background: rgba(107,72,255,0.15);
+      border-color: rgba(107,72,255,0.5);
+      transform: translateY(-1px);
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      display:flex; align-items:center; gap:16px;
+      margin: 42px 0;
+    }
+    .divider::before, .divider::after {
+      content:''; flex:1; height:1px;
+      background: linear-gradient(90deg, transparent, rgba(107,72,255,0.3), transparent);
+    }
+    .divider span { color:var(--accent2); font-size:16px; opacity:0.5; }
+
+    /* ── BLOCK ── */
+    .block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 34px 40px;
+      margin-bottom: 18px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.4s, box-shadow 0.4s;
+    }
+    .block:hover {
+      border-color: rgba(107,72,255,0.25);
+      box-shadow: 0 0 40px rgba(107,72,255,0.07), inset 0 0 40px rgba(107,72,255,0.02);
+    }
+
+    /* Top accent line */
+    .block::after {
+      content:''; position:absolute;
+      top:0; left:0; right:0; height:1px;
+      background: linear-gradient(90deg, transparent, rgba(107,72,255,0.5), transparent);
+    }
+    .block.gold-top::after {
+      background: linear-gradient(90deg, transparent, rgba(212,168,67,0.6), transparent);
+    }
+    .block.green-top::after {
+      background: linear-gradient(90deg, transparent, rgba(34,197,94,0.5), transparent);
+    }
+
+    /* Corner ornaments */
+    .block::before {
+      content:''; position:absolute;
+      top:8px; left:8px; width:20px; height:20px;
+      border-top: 1px solid rgba(107,72,255,0.2);
+      border-left: 1px solid rgba(107,72,255,0.2);
+      border-radius: 4px 0 0 0;
+    }
+
+    /* Inner shimmer */
+    .block .shimmer {
+      position: absolute; inset:0; pointer-events:none;
+      background: linear-gradient(135deg,
+        rgba(107,72,255,0.03) 0%,
+        transparent 50%,
+        rgba(168,85,247,0.02) 100%);
+    }
+
+    .block-label {
+      display:flex; align-items:center; gap:12px;
+      margin-bottom: 22px;
+    }
+    .badge {
+      width:36px; height:36px; border-radius:10px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:16px; flex-shrink:0;
+      position: relative;
+    }
+    .badge.v  { background: rgba(107,72,255,0.18); box-shadow: 0 0 12px rgba(107,72,255,0.2); }
+    .badge.g  { background: rgba(212,168,67,0.15); box-shadow: 0 0 12px rgba(212,168,67,0.15); }
+    .badge.gr { background: rgba(34,197,94,0.12); box-shadow: 0 0 12px rgba(34,197,94,0.12); }
+    .badge.r  { background: rgba(239,68,68,0.12); }
+
+    h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+
+    /* ── PROSE ── */
+    .prose { font-size: 14px; color: var(--muted); line-height: 1.9; }
+    .prose strong { color: var(--text); font-weight: 500; }
+    .prose em { color: var(--accent2); font-style: normal; }
+
+    /* ── EXPERIENCE CARDS ── */
+    .exp-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:10px; }
+    .exp-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      transition: all 0.3s;
+    }
+    .exp-card:hover {
+      background: var(--surface3);
+      border-color: rgba(107,72,255,0.2);
+      transform: translateY(-2px);
+    }
+    .exp-card .role-tag {
+      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 6px; font-weight: 600;
+    }
+    .exp-card .server-name {
+      font-size: 16px; font-weight: 600; color: var(--text);
+      font-family: 'Cinzel', serif;
+    }
+    .exp-card .server-note { font-size: 12px; color: var(--muted); margin-top: 5px; }
+    .exp-card.jjk { border-color: rgba(107,72,255,0.3); background: rgba(107,72,255,0.05); }
+    .exp-card.jjk .role-tag { color: #818cf8; }
+
+    /* ── MOTIVATIONS ── */
+    .motive-list { display:flex; flex-direction:column; gap:16px; margin-top:8px; }
+    .motive-item { display:flex; gap:16px; align-items:flex-start; }
+    .motive-icon {
+      width:38px; height:38px; border-radius:10px; flex-shrink:0;
+      background: var(--surface2); border: 1px solid var(--border);
+      display:flex; align-items:center; justify-content:center;
+      font-size:16px; margin-top:2px;
+      box-shadow: 0 0 12px rgba(107,72,255,0.08);
+    }
+    .motive-text { font-size:14px; color:var(--muted); line-height:1.7; }
+    .motive-text strong {
+      color:var(--text); font-weight:500; display:block;
+      font-size:13px; margin-bottom:3px;
+    }
+
+    /* ── KNOWLEDGE BARS ── */
+    .know-row { display:flex; align-items:center; gap:16px; margin-top:10px; }
+    .know-label { font-size:12px; color:var(--muted); white-space:nowrap; min-width:70px; }
+    .bar-track {
+      flex:1; height:5px; background:var(--surface2);
+      border-radius:99px; overflow:hidden;
+      position: relative;
+    }
+    .bar-fill {
+      height:100%; border-radius:99px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+      width:0; transition: width 1.4s cubic-bezier(0.25, 1, 0.5, 1);
+      position: relative;
+    }
+    .bar-fill::after {
+      content:''; position:absolute; right:0; top:-2px;
+      width:9px; height:9px; border-radius:50%;
+      background: var(--accent3);
+      box-shadow: 0 0 8px var(--accent2);
+    }
+    .bar-val { font-size:12px; color:var(--accent2); font-weight:600; min-width:36px; text-align:right; }
+
+    /* ── AVAILABILITY BLOCK ── */
+    .dispo-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px; margin-top: 12px;
+    }
+    .dispo-card {
+      border-radius: 12px; padding: 20px;
+      border: 1px solid rgba(107,72,255,0.2);
+      background: rgba(107,72,255,0.05);
+      text-align: center; position: relative; overflow: hidden;
+      transition: all 0.3s;
+    }
+    .dispo-card:hover {
+      border-color: rgba(107,72,255,0.4);
+      background: rgba(107,72,255,0.1);
+      transform: translateY(-2px);
+    }
+    .dispo-card::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:1px;
+      background: linear-gradient(90deg, transparent, rgba(107,72,255,0.5), transparent);
+    }
+    .dispo-card.weekend {
+      border-color: rgba(212,168,67,0.25);
+      background: rgba(212,168,67,0.04);
+    }
+    .dispo-card.weekend::before {
+      background: linear-gradient(90deg, transparent, rgba(212,168,67,0.5), transparent);
+    }
+    .dispo-card.weekend:hover {
+      border-color: rgba(212,168,67,0.45);
+      background: rgba(212,168,67,0.09);
+    }
+    .dispo-icon { font-size: 28px; margin-bottom: 10px; }
+    .dispo-day {
+      font-family: 'Cinzel', serif;
+      font-size: 10px; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .dispo-time {
+      font-family: 'Cinzel', serif;
+      font-size: 20px; font-weight: 700;
+      color: var(--accent2);
+    }
+    .dispo-card.weekend .dispo-time { color: var(--gold2); }
+    .dispo-sub {
+      font-size: 11px; color: var(--muted);
+      margin-top: 6px;
+    }
+    .dispo-badge {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 3px 10px; border-radius: 99px;
+      font-size: 10px; letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+    .dispo-badge.purple { background: rgba(107,72,255,0.15); color: var(--accent3); }
+    .dispo-badge.gold { background: rgba(212,168,67,0.12); color: var(--gold2); }
+
+    /* Flashing dot */
+    .dot-live {
+      display: inline-block; width:7px; height:7px; border-radius:50%;
+      background: #22c55e; margin-right: 6px;
+      animation: dotBlink 1.8s ease-in-out infinite;
+    }
+    @keyframes dotBlink {
+      0%,100% { opacity:1; box-shadow: 0 0 6px #22c55e; }
+      50% { opacity:0.3; box-shadow: none; }
+    }
+
+    /* ── PROFILE GRID ── */
+    .profile-grid {
+      display:grid; grid-template-columns:repeat(3,1fr);
+      gap:1px; background:rgba(107,72,255,0.12);
+      border: 1px solid rgba(107,72,255,0.2);
+      border-radius: 16px; overflow:hidden;
+    }
+    .profile-cell {
+      background:var(--surface); padding:28px 20px; text-align:center;
+      transition: background 0.3s;
+    }
+    .profile-cell:hover { background: var(--surface2); }
+    .cell-label {
+      font-family:'Cinzel',serif; font-size:9px; letter-spacing:3px;
+      color:var(--accent); text-transform:uppercase; margin-bottom:10px;
+    }
+    .cell-val {
+      font-size:17px; font-weight:600; color:var(--accent2);
+      font-family:'Cinzel',serif;
+    }
+    .cell-val.plain { color: var(--text); font-weight:400; }
+
+    /* ── QUALITIES ── */
+    .qual-grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:14px; }
+    .qual-grid-2 { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-bottom:18px; }
+    .qual-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 30px 22px; text-align:center;
+      position: relative; overflow: hidden;
+      transition: all 0.35s;
+    }
+    .qual-card::after {
+      content:''; position:absolute;
+      top:0; left:0; right:0; height:1px;
+      background: linear-gradient(90deg, transparent, rgba(107,72,255,0.4), transparent);
+    }
+    .qual-card:hover {
+      border-color: rgba(107,72,255,0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(107,72,255,0.1);
+    }
+    .qual-icon { font-size:32px; margin-bottom:14px; }
+    .qual-title {
+      font-family:'Cinzel',serif; font-size:9px;
+      letter-spacing:3px; color:var(--accent);
+      text-transform:uppercase; margin-bottom:12px;
+    }
+    .qual-desc { font-size:13px; color:var(--muted); line-height:1.8; }
+
+    /* ── CLOSING ── */
+    .closing { text-align:center; padding:42px 24px 0; }
+    .closing blockquote {
+      font-family:'Cinzel',serif;
+      font-size: clamp(13px,2.5vw,17px);
+      font-weight:400; color:var(--accent2);
+      opacity:.75; letter-spacing:1px;
+      line-height:1.9; font-style:italic;
+      max-width:540px; margin:0 auto 14px;
+    }
+    .closing .quote-src {
+      font-size:11px; color:var(--muted);
+      letter-spacing:2px; text-transform:uppercase;
+    }
+
+    /* ── SECTION HEADING ── */
+    .section-head { text-align:center; margin-bottom:42px; }
+    .section-eyecatch {
+      font-family:'Cinzel',serif; font-size:10px;
+      letter-spacing:5px; color:var(--accent2);
+      text-transform:uppercase; margin-bottom:12px;
+    }
+    .section-title {
+      font-family:'Cinzel',serif;
+      font-size:clamp(22px,4vw,36px); font-weight:700;
+      letter-spacing:2px; color:var(--text);
+      text-transform:uppercase;
+    }
+    .section-title span { color:var(--accent); }
+    .section-line {
+      width:50px; height:2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      margin:16px auto 0; border-radius:2px;
+      box-shadow: 0 0 10px rgba(107,72,255,0.5);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align:center; margin-top:56px;
+      padding-top:24px; border-top:1px solid var(--border);
+      font-size:11px; color:var(--muted); opacity:.35;
+      letter-spacing:1.5px;
+    }
+
+    /* ── ENTRANCE ANIMATION ── */
+    .fade-in {
+      opacity: 0; transform: translateY(20px);
+      animation: fadeSlide 0.7s ease forwards;
+    }
+    @keyframes fadeSlide {
+      to { opacity:1; transform: translateY(0); }
+    }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.25s; }
+    .delay-3 { animation-delay: 0.4s; }
+    .delay-4 { animation-delay: 0.55s; }
+
+    @media(max-width:560px){
+      .block { padding:24px 20px; }
+      .exp-grid { grid-template-columns:1fr; }
+      .dispo-grid { grid-template-columns:1fr; }
+      .qual-grid-3 { grid-template-columns:1fr; }
+      .qual-grid-2 { grid-template-columns:1fr; }
+      .profile-grid { grid-template-columns:1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-layer">
+  <div class="bg-grad"></div>
+  <div class="scanlines"></div>
+</div>
+<div class="particles" id="ptcl"></div>
+
+<div class="page">
+
+  <!-- ── COVER ── -->
+  <div class="cover fade-in">
+    <div class="sigil-wrap">
+      <div class="sigil-glow"></div>
+      <div class="ring ring-1"></div>
+      <div class="ring ring-2"></div>
+      <div class="ring ring-3"></div>
+      <div class="sigil-core">
+        <svg width="58" height="58" viewBox="0 0 58 58" fill="none">
+          <path d="M29 4 L33.5 22.5 L52 29 L33.5 35.5 L29 54 L24.5 35.5 L6 29 L24.5 22.5 Z"
+                fill="rgba(107,72,255,0.2)" stroke="rgba(107,72,255,0.8)" stroke-width="1"/>
+          <circle cx="29" cy="29" r="7" fill="rgba(168,85,247,0.4)"/>
+          <circle cx="29" cy="29" r="3.5" fill="#a855f7"/>
+          <path d="M29 14 L29 44 M14 29 L44 29" stroke="rgba(107,72,255,0.25)" stroke-width="0.5"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="eyecatch" style="display:none;"></div>
+    <h1>Candidature au poste de<br/>Modérateur</h1>
+    <p class="sub" style="display:none;"></p>
+
+    <div class="tag-row">
+      <span class="tag">Modération</span>
+      <span class="tag">Animation</span>
+      <span class="tag">Multi-serveurs</span>
+      <span class="tag">JJK Universe</span>
+    </div>
+  </div>
+
+  <div class="divider fade-in delay-1"><span>◆</span></div>
+
+  <!-- ── MON PROFIL ── -->
+  <div class="section-head fade-in delay-2">
+    <p class="section-eyecatch">Fiche Candidat</p>
+    <h2 class="section-title">MON <span>PROFIL</span></h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="block fade-in delay-2" style="padding:0; overflow:visible; background:transparent; border:none;">
+    <div class="profile-grid">
+      <div class="profile-cell">
+        <p class="cell-label">Pseudo</p>
+        <p class="cell-val">Manatsu</p>
+      </div>
+      <div class="profile-cell">
+        <p class="cell-label">Âge</p>
+        <p class="cell-val plain">17 ans</p>
+      </div>
+      <div class="profile-cell">
+        <p class="cell-label">Poste visé</p>
+        <p class="cell-val">Modérateur</p>
+      </div>
+      <div class="profile-cell">
+        <p class="cell-label">Serveur</p>
+        <p class="cell-val plain">Verse (JJK RP)</p>
+      </div>
+      <div class="profile-cell">
+        <p class="cell-label">Expérience</p>
+        <p class="cell-val">Multi-serveurs</p>
+      </div>
+      <div class="profile-cell">
+        <p class="cell-label">Disponibilité</p>
+        <p class="cell-val" style="font-size:13px; letter-spacing:0.5px;">17h–22h30</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MES QUALITÉS ── -->
+  <div class="divider"><span>◆</span></div>
+
+  <div class="section-head fade-in delay-3">
+    <p class="section-eyecatch">Ce que j'apporte</p>
+    <h2 class="section-title">MES <span>QUALITÉS</span></h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="qual-grid-3">
+    <div class="qual-card">
+      <div class="qual-icon">⚖️</div>
+      <p class="qual-title">Neutralité</p>
+      <p class="qual-desc">Je traite chaque situation avec impartialité. Aucun favoritisme chaque décision est prise dans l'intérêt du serveur et de tous ses membres.</p>
+    </div>
+    <div class="qual-card">
+      <div class="qual-icon">⚡</div>
+      <p class="qual-title">Réactivité</p>
+      <p class="qual-desc">Je réponds rapidement aux signalements et situations problématiques.</p>
+    </div>
+    <div class="qual-card">
+      <div class="qual-icon">🤝</div>
+      <p class="qual-title">Sens du collectif</p>
+      <p class="qual-desc">Un bon modérateur travaille en équipe. Je sais coordonner avec le staff et m'assurer que chaque membre se sente respecté et entendu.</p>
+    </div>
+  </div>
+
+  <div class="qual-grid-2">
+    <div class="qual-card">
+      <div class="qual-icon">📖</div>
+      <p class="qual-title">Maîtrise de l'univers</p>
+      <p class="qual-desc">Je connais l'univers JJK en profondeur. La lore, les factions, le monde JJK.</p>
+    </div>
+    <div class="qual-card">
+      <div class="qual-icon">🔥</div>
+      <p class="qual-title">Implication totale</p>
+      <p class="qual-desc">Je m'investis à fond dans chaque serveur que j'intègre. Je veux m'inscrire dans la durée et contribuer à la vie quotidienne du serveur.</p>
+    </div>
+  </div>
+
+  <!-- ── DISPONIBILITÉ ── -->
+  <div class="block green-top fade-in delay-2">
+    <div class="shimmer"></div>
+    <div class="block-label">
+      <div class="badge gr">🕐</div>
+      <h2>Disponibilité</h2>
+    </div>
+    <p class="prose" style="margin-bottom:18px;">
+      <span class="dot-live"></span>
+      Je suis <strong>régulièrement présent</strong> et disponible selon le planning suivant :
+    </p>
+
+    <div class="dispo-grid">
+      <div class="dispo-card">
+        <div class="dispo-icon">🌙</div>
+        <div class="dispo-day">Lundi → Vendredi</div>
+        <div class="dispo-time">17h → 22h30</div>
+        <div class="dispo-sub">Chaque soir de la semaine</div>
+        <span class="dispo-badge purple">5h30 / jour</span>
+      </div>
+      <div class="dispo-card weekend">
+        <div class="dispo-icon">⚡</div>
+        <div class="dispo-day">Samedi & Dimanche</div>
+        <div class="dispo-time">Toute la journée</div>
+        <div class="dispo-sub">Disponibilité totale le week-end</div>
+        <span class="dispo-badge gold">Full dispo</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── EXPÉRIENCES ── -->
+  <div class="block fade-in delay-3">
+    <div class="shimmer"></div>
+    <div class="block-label">
+      <div class="badge g">📜</div>
+      <h2>Expériences Staff</h2>
+    </div>
+    <p class="prose" style="margin-bottom:18px;">
+      J'ai occupé plusieurs postes au sein de diverses communautés Discord, aussi bien en <strong>modération</strong> qu'en <strong>animation</strong>, dont plusieurs directement liées à l'univers JJK :
+    </p>
+
+    <div class="exp-grid">
+      <div class="exp-card jjk">
+        <div class="role-tag">🎙️ Animateur</div>
+        <div class="server-name">ATG JJK</div>
+      </div>
+      <div class="exp-card">
+        <div class="role-tag">🎙️ Animateur</div>
+        <div class="server-name">SKR</div>
+      </div>
+      <div class="exp-card">
+        <div class="role-tag">🛡️ Modérateur</div>
+        <div class="server-name">LDS</div>
+      </div>
+      <div class="exp-card">
+        <div class="role-tag">🛡️ Modérateur</div>
+        <div class="server-name">All Blue</div>
+      </div>
+
+      <div class="exp-card">
+        <div class="role-tag">🎙️ Animateur</div>
+        <div class="server-name">SDA</div>
+      </div>
+      <div class="exp-card jjk">
+        <div class="role-tag">🛡️ Modérateur</div>
+        <div class="server-name">FOC JJK</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CONNAISSANCE JJK ── -->
+  <div class="block gold-top fade-in delay-3">
+    <div class="shimmer"></div>
+    <div class="block-label">
+      <div class="badge g">⚡</div>
+      <h2>Connaissance de l'univers</h2>
+    </div>
+    <p class="prose">
+      Je connais en profondeur l'univers <strong>Jujutsu Kaisen</strong>, aussi bien dans sa version <em>manga</em> qu'<em>animée</em>. Lore, techniques maudites, personnages, arcs narratifs, je maîtrise l'ensemble du contenu disponible à ce jour. Je suis donc en mesure de répondre aux questions des joueurs concernant l'univers JJK.
+    </p>
+  </div>
+
+  <!-- ── MOTIVATIONS ── -->
+  <div class="block fade-in delay-4">
+    <div class="shimmer"></div>
+    <div class="block-label">
+      <div class="badge gr">💬</div>
+      <h2>Motivations</h2>
+    </div>
+
+    <div class="motive-list">
+      <div class="motive-item">
+        <div class="motive-icon">🌱</div>
+        <div class="motive-text">
+          <strong>Aider les nouveaux membres</strong>
+          J'aime accueillir et orienter les personnes qui arrivent sur un serveur. Veiller à ce que chaque nouveau membre trouve sa place rapidement est quelque chose qui compte beaucoup pour moi, et que j'ai déjà mis en pratique dans mes expériences passées.
+        </div>
+      </div>
+      <div class="motive-item">
+        <div class="motive-icon">📈</div>
+        <div class="motive-text">
+          <strong>Contribuer à la croissance du serveur</strong>
+          Je veux m'investir activement pour que JJK RP grandisse sainement en maintenant une atmosphère agréable, en proposant des idées et en restant disponible pour l'équipe comme pour les membres.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer style="display:none;"></footer>
+</div>
+
+<script>
+  // Particles génération
+  const ptcl = document.getElementById('ptcl');
+  for(let i=0;i<50;i++){
+    const d=document.createElement('div');
+    d.className='p';
+    const isGold = Math.random() > 0.85;
+    d.style.cssText=`
+      left:${Math.random()*100}%;
+      top:${30+Math.random()*70}%;
+      width:${0.8+Math.random()*2.5}px;
+      height:${0.8+Math.random()*2.5}px;
+      background:${isGold ? '#d4a843' : (Math.random()>.5?'#6b48ff':'#a855f7')};
+      --d:${5+Math.random()*9}s;
+      --dl:${-Math.random()*12}s;
+    `;
+    ptcl.appendChild(d);
+  }
+
+  // Animate bars on load
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.querySelectorAll('.bar-fill').forEach(b => {
+        b.style.width = b.dataset.w + '%';
+      });
+    }, 400);
+  });
+
+  // IntersectionObserver pour fade-in au scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  // Observe blocks
+  document.querySelectorAll('.block, .qual-card, .exp-card').forEach(el => {
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease, border-color 0.4s, box-shadow 0.4s';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
